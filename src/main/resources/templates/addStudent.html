@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a student</title>
+</head>
+<body>
+Add a student <br>
+<form method="post" action="/student/add" enctype="multipart/form-data">
+    Student Name: <input type="text" name="name"> <br>
+    Student Surname: <input type="text" name="surname"> <br>
+    Student Email: <input type="email" name="email"> <br>
+    Student Lesson: <select name="lesson.id">
+    <option th:each="lesson : ${lessons}" th:text="${lesson.title}" th:value="${lesson.id}"></option>
+</select> <br>
+    <input type="file" name="picture">
+    <input type="submit" value="Add">
+</form>
+</body>
+</html>

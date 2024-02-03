@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teachers</title>
+</head>
+<body>
+<h2>Teachers</h2>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+<a href="teacher/add"> Add a teacher</a> <br>
+<span th:text="${msg}" th:style="'color: red'"></span>
+<table>
+    <thead>
+    <tr>
+        <th>Teacher Id</th>
+        <th>Teacher Name</th>
+        <th>Teacher Surname</th>
+        <th>Teacher email</th>
+        <th>Teacher Picture</th>
+        <th>Teacher Lesson</th>
+        <th>Delete</th>
+        <th>Update</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="teacher : ${teachers}">
+        <td th:text="${teacher.id}"></td>
+        <td th:text="${teacher.name}"></td>
+        <td th:text="${teacher.surname}"></td>
+        <td th:text="${teacher.email}"></td>
+        <td>
+            <img th:if="${teacher.picName != null}"
+                 th:src="@{/getImage(picName=${teacher.picName})}" width="40">
+        </td>
+        <td th:if="${teacher.lesson != null}" th:text="${teacher.lesson.title}"></td>
+        <td><a th:href="@{'/teacher/delete/' + ${teacher.id}}"> Delete </a></td>
+        <td><a th:href="@{'/teacher/update/' + ${teacher.id}}"> Update </a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lessons</title>
+</head>
+<body>
+<a href="lesson/add"><h3>Add a lesson</h3></a>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+<table border="1">
+    <thead>
+    <tr>
+        <td>Lesson Id</td>
+        <td>Lesson Title</td>
+        <td>Lesson Duration</td>
+        <td>Lesson Price</td>
+        <td>Lesson start date</td>
+        <td>Teacher name</td>
+        <td>Delete</td>
+        <td>Update</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="lesson : ${lessons}">
+        <td th:text="${lesson.id}"></td>
+        <td th:text="${lesson.title}"></td>
+        <td th:text="${lesson.duration}"></td>
+        <td th:text="${lesson.price}"></td>
+        <td th:text="${#dates.format(lesson.startDate, 'yyyy-MM-dd')}"></td>
+
+        <td>
+            <ul th:each="teacher : ${teachers}"
+                th:if="${ teacher.lesson != null and lesson.title == teacher.lesson.title}">
+                <li th:text="${teacher.name + ' ' + teacher.surname}"></li>
+            </ul>
+        </td>
+
+        <td><a th:href="@{'/lesson/delete/' + ${lesson.id}}"> Delete </a></td>
+        <td><a th:href="@{'/lesson/update/' + ${lesson.id}}"> Update </a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
